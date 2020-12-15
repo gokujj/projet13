@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Erreur 404{% endblock %}
+{% block content %}
+{% load static %}
+<header class="minhead text-center text-white d-flex">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="text-uppercase">
+                    <strong>Oups! Erreur 404</strong>
+                </h1>
+                <hr>
+            </div>
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-faded mb-5">
+                    La page que vous avez demandé n'existe pas.
+                </h2>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}

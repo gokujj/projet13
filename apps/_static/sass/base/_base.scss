@@ -1,0 +1,64 @@
+html,
+body {
+    height: 100%;
+    background-color: $grey;
+    font-family: $font-stack;
+    padding-top: 25px;
+}
+
+@include media-breakpoint-up(md) {
+    body {
+    }
+
+    .cta-custom-sm-screen {
+        @include invisible(hidden);
+    }
+
+    .cta-custom-lg-screen {
+        display: block;
+    }
+
+    .nav-custom-page-title {
+        display: none;
+    }
+
+    .jumbotron-desktop-only {
+        display: block;
+    }
+
+    .text-custom-profile {
+        font-size: 1.4rem;
+    }
+
+}
+
+@include media-breakpoint-down(md) {
+    body {
+        margin-bottom: 25px;
+        padding-top: 50px;
+    }
+
+    .cta-custom-sm-screen {
+        @include invisible(visible);
+    }
+
+    .cta-custom-lg-screen {
+        display: none;
+    }
+
+    .nav-custom-page-title {
+        display: block;
+    }
+
+    .jumbotron-desktop-only {
+        display: none;
+    }
+
+    .jumbotron {
+        margin-top: -25px;
+    }
+
+    .text-custom-profile {
+        font-size: 1rem;
+    }
+}

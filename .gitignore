@@ -1,0 +1,16 @@
+.env
+venv/
+env/
+
+.vscode/
+.idea/
+
+__pycache__/
+*.pyc 
+
+.DS_Store
+__MACOSX
+
+node_modules/
+
+db.sqlite3

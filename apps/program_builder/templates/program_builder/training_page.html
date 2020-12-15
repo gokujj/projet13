@@ -1,0 +1,24 @@
+{% extends "program_builder/base.html" %}
+{% block meta_description %}Exercice{% endblock %}
+{% block title %}FitLg - Page Exercice{% endblock %}
+{% block content %}
+{% load static %}
+<main class="container">
+    <div class="jumbotron mt-4">
+        <h1 class="display-4">{{ training.exercise.name }}</h1>
+        <p class="lead">{{ training.date }}</p>
+        <hr class="my-4">
+        <!-- Button trigger modal for exercise composition -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exerciseStartModal">
+            Entraînement {{ training.performance_type }}
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% if messages %}
+                {% include 'messages.html' %}
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

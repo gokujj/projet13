@@ -1,0 +1,138 @@
+{% extends "program_builder/base.html" %}
+{% block meta_description %}Liste d'exercies{% endblock %}
+{% block title %}FitLg - Exercices{% endblock %}
+{% block content %}
+{% load static %}
+<div class="jumbotron jumbotron-fluid jumbotron-desktop-only bg-dark text-light">
+    <div class="container">
+        <h1>Exercices</h1>
+        <p class="lead">Retrouvez l'ensemble des exercices disponibles avec lesquels vous pouvez composez vos entraînements.</p>
+        <div class="cta-custom-lg-screen">
+            <hr class="my-4">
+            <!-- Button trigger modal for exercise composition -->
+            <button type="button" class="btn btn-secondary text-light font-weight-bold" data-toggle="modal" data-target="#exerciseModalStep1">
+                Nouvel Exercice
+            </button>
+        </div>
+
+    </div>
+</div>
+<main class="container">
+    <div class="row">
+        <div class="col-12">
+            {% if messages %}
+                {% include 'messages.html' %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                {% for exercise in exercises %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card mb-4 shadow ml-0 rounded-0">
+                            <div class="row">
+                                <div class="col-8 card-body">
+                                    <h5 class="card-title mb-2">{{ exercise.name|upper }}</h5>
+                                    <h6 class="card-subtitle text-muted">{{ exercise.exercise_type }}</h6>
+                                </div>
+                                <div class="col-4 card-body text-center">
+                                    {% if exercise.pb != 0 %}
+                                        <h5 class="card-title mb-2"><i class="fas fa-medal fa-lg text-info"></i></h5>
+                                        {% if exercise.goal_type != "duree" %}
+                                            <h6 class="card-subtitle text-info">
+                                                {% if exercise.pb.hour > 0 %}{{ exercise.pb.hour }}:{% endif %}{{ exercise.pb.minute }}:{{ exercise.pb.second }}</h6>
+                                        {% else %}
+                                        <h6 class="card-subtitle text-info">{{ exercise.pb }}</h6>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <a href="{% url 'program_builder:exercise_page' exercise_pk=exercise.id %}" class="card-link text-info ml-1">DETAILS</a>
+                                    {% if exercise.is_default == False %}
+                                        <a href="{% url 'program_builder:delete_exercise' exercise_pk=exercise.id %}" class="card-link text-danger ml-1">SUPPRIMER</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+<nav class="navbar cta-custom-sm-screen navbar-dark bg-dark shadow fixed-bottom d-flex justify-content-center px-0 py-0">
+    <button type="button" class="btn btn-block btn-secondary text-light font-weight-bold border-0 rounded-0 py-2" data-toggle="modal" data-target="#exerciseModalStep1">
+        NOUVEL EXERCICE
+    </button>   
+</nav>
+
+<!-- Form Modal Exercise Creation Step1 -->
+<div class="modal fade" id="exerciseModalStep1" tabindex="-1" role="dialog" aria-labelledby="exerciseModalStep1Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exerciseModalStep1Label">Nouvel Exercice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Etape 1</li>
+                <li class="breadcrumb-item">Etape 2</li>
+            </ol>
+        </nav>
+        <div class="modal-body">
+            <form action="" method="" id="exerciseModalStep1Form">
+                <div class="form-group">
+                    {{ new_exercise_form.name.label }}
+                    {{ new_exercise_form.name }}
+                </div>
+                <div class="form-group">
+                    {{ new_exercise_form.exercise_type.label }}
+                    {{ new_exercise_form.exercise_type }}
+                </div>
+                <div class="form-group">
+                    {{ new_exercise_form.description.label }}
+                    {{ new_exercise_form.description }}
+                </div>
+                <button type="submit" class="btn btn-block btn-secondary text-light font-weight-bold">SUIVANT</button> 
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Form Modal Exercise Creation Step2 -->
+<div class="modal fade" id="exerciseModalStep2" tabindex="-1" role="dialog" aria-labelledby="exerciseModalStep2Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exerciseModalStep2Label">Nouvel Exercice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Etape 1</li>
+                <li class="breadcrumb-item active" aria-current="page">Etape 2</li>
+            </ol>
+        </nav>
+        <div class="modal-body">
+            <form action="" method="post" id="exerciseModalStep2Form">
+                {% csrf_token %}
+                {# The form is managed by the front #}
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block custom_js %}
+<script src="{% static 'javascript/modal_prototype.js' %}"></script>
+<script src="{% static 'javascript/exercise_prototype.js' %}"></script>
+<script src="{% static 'javascript/exercise_creation.js' %}"></script>
+{% endblock %} 

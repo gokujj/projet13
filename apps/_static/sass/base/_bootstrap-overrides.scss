@@ -1,0 +1,7 @@
+.modal {
+    overflow: auto;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus{
+    box-shadow:none;
+}

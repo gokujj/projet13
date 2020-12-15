@@ -1,0 +1,102 @@
+{% extends "program_builder/base.html" %}
+{% block meta_description %}Exercice{% endblock %}
+{% block title %}FitLg - Page Exercice{% endblock %}
+{% block content %}
+{% load static %}
+<div class="jumbotron jumbotron-fluid bg-dark text-light">
+    <div class="container">
+        <h1>{{ exercise_dict.name|upper }}</h1>
+        <p class="lead">{{ exercise_dict.description }}</p>
+        <div class="cta-custom-lg-screen">
+            <hr class="my-4">
+            <!-- Button trigger modal for exercise composition -->
+            <button type="button" class="btn btn-secondary text-light font-weight-bold" data-toggle="modal" data-target="#exerciseStartModal">
+                Démarrer un Entrainement
+            </button>
+        </div>
+
+    </div>
+</div>
+<main class="container">
+
+    <div class="row">
+        <div class="col-12">
+            {% if messages %}
+                {% include 'messages.html' %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-info text-light my-2 shadow border-0 rounded-0">
+                <div class="card-body">
+                    <h5 class="card-title mb-0">
+                        {{ exercise_dict.goal_type|upper }} : {{ exercise_dict.goal_value }}
+                        {% if exercise_dict.goal_type == "duree" %}
+                            minutes
+                        {% elif exercise_dict.goal_type == "round" %}
+                            {% if exercise_dict.goal_value == 1 %}
+                                tour
+                            {% else %}
+                                tours
+                            {% endif %}
+                        {% else %}
+                            metres
+                        {% endif %}
+                    </h5>
+                </div>
+            </div>
+        </div>     
+        {% for movement in exercise_dict.movements %}
+            <div class="col-12">
+                <div class="card shadow my-2 border-0 rounded-0">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark font-weight-bold mb-3">{{movement.order}}. {{movement.name|upper}}</h5>
+                        {% for setting in movement.settings %}
+                            <h6 class="card-subtitle mb-2 text-muted ml-3">{{ setting.name|upper }}: {{ setting.value }}</h5>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+<nav class="navbar cta-custom-sm-screen navbar-dark bg-dark shadow fixed-bottom d-flex justify-content-center px-0 py-0">
+    <button type="button" class="btn btn-block btn-secondary text-light font-weight-bold rounded-0 border-0 py-2" data-toggle="modal" data-target="#exerciseStartModal">
+        COMMENCER L'ENTRAINEMENT
+    </button>
+</nav>
+
+<!-- Form Modal - Modification Creation -->
+<div class="modal fade" id="exerciseStartModal" tabindex="-1" role="dialog" aria-labelledby="exerciseStartModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exerciseStartModalLabel">Nouvel Entraînement : {{ exercise_dict.name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p>Prêt à se lancer?</p>
+                <form action="" method="post" id="exerciseStartModalForm">
+                    {% csrf_token %}
+                    <div class="form-group row" hidden>
+                        <label for="exerciseId" class="col-2 col-form-label">PK</label>
+                        <div class="col-10">
+                            <input type="text" readonly class="form-control-plaintext" id="exerciseId" value="{{ exercise_dict.id }}">
+                        </div>
+                    </div>
+                    <div class="form-group row" hidden>
+                        <label for="startDate" class="col-2 col-form-label">Date</label>
+                        <div class="col-10">
+                            <input type="startDate" readonly class="form-control-plaintext" id="exerciseId" value="{{ date }}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-secondary text-light font-weight-bold">COMMENCER</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

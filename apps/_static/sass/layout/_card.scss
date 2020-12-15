@@ -1,0 +1,18 @@
+.card-subtitle {
+    font-size:1rem;
+}
+
+.card-title {
+    font-size:1.2rem;
+}
+
+@include media-breakpoint-up(sm) {
+    .card-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 0px;
+    }
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0px;
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "FitLg",
+    "version": "0.9.0",
+    "description": "en construction",
+    "main": "index.js",
+    "scripts": {
+        "compile:sass": "node-sass apps/_static/sass/main.scss apps/_static/css/main.css"
+    },
+    "author": "Gokan Boyraz",
+    "license": "MIT",
+    "devDependencies": {
+        "node-sass": "^5.0.0"
+    }
+}
