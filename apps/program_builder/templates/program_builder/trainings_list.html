@@ -29,7 +29,7 @@
                                         <h5 class="col-sm-12 col-md-4 card-subtitle text-light">{{ training.date.day }}/{{ training.date.month }}/{{ training.date.year }}</h5>
                                         <h5 class="col-sm-12 col-md-4 card-title text-white">{{ training.exercise.name|upper }}</h5>
                                         {% if training.performance_type == "duree" %}
-                                            <h5 class="col-sm-12 col-md-4 card-title text-white">duree: {% if training.performance_value.pb.hour > 0 %}{{ training.performance_value.pb.hour }}:{% endif %}{{ training.performance_value.minute }}:{{ training.performance_value.second }}</h5>
+                                            <h5 class="col-sm-12 col-md-4 card-title text-white">duree: {{ training.performance_value }}</h5>
                                         {% else %}
                                             <h5 class="col-sm-12 col-md-4 card-title text-white">tours: {{ training.performance_value }}</h5>
                                         {% endif %}
@@ -52,7 +52,7 @@
                                         <h5 class="col-sm-12 col-md-4 card-subtitle text-muted">{{ training.date.day }}/{{ training.date.month }}/{{ training.date.year }}</h5>
                                         <h5 class="col-sm-12 col-md-4 card-title text-primary">{{ training.exercise.name|upper }}</h5>
                                         {% if training.performance_type == "duree" %}
-                                            <h5 class="col-sm-12 col-md-4 card-title text-primary">duree: {% if training.performance_value.hour > 0 %}{{ training.performance_value.hour }}:{% endif %}{{ training.performance_value.minute }}:{{ training.performance_value.second }}</h5>
+                                            <h5 class="col-sm-12 col-md-4 card-title text-primary">duree: {{ training.performance_value }}</h5>
                                         {% else %}
                                             <h5 class="col-sm-12 col-md-4 card-title text-primary">tours: {{ training.performance_value }}</h5>
                                         {% endif %}
