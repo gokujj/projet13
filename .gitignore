@@ -14,3 +14,4 @@ __MACOSX
 node_modules/
 
 db.sqlite3
+.coverage
