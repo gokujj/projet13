@@ -18,7 +18,7 @@ class RegisterPageTestCase(TestCase):
         """
         Just it tests if the register page is available
         """
-        response = self.client.get(reverse('authentification:register'))
+        response = self.client.get(reverse('users:register'))
         self.assertEqual(response.status_code, 200)
 
     def test_register_page_success_registration(self):
@@ -34,9 +34,9 @@ class RegisterPageTestCase(TestCase):
             'password_check': 'unit-test-view',
         }
 
-        response = self.client.post(reverse('authentification:register'), data)
+        response = self.client.post(reverse('users:register'), data)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('authentification:log_in'))
+        self.assertRedirects(response, reverse('users:log_in'))
 
     def test_register_page_fail_registration(self):
         """
@@ -54,7 +54,7 @@ class RegisterPageTestCase(TestCase):
         user = User.objects.filter(
             Q(username="test-page"), Q(email="unit-test@register.com")
         )
-        response = self.client.post(reverse('authentification:register'), data)
+        response = self.client.post(reverse('users:register'), data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(user), 0)
 
@@ -77,7 +77,7 @@ class LoginPageTestCase(TestCase):
         """
         Just it tests if the login page is available
         """
-        response = self.client.get(reverse('authentification:log_in'))
+        response = self.client.get(reverse('users:log_in'))
         self.assertEqual(response.status_code, 200)
 
     def test_login_page_success_connexion(self):
@@ -91,7 +91,7 @@ class LoginPageTestCase(TestCase):
             'password': 'existing-ref',
         }
 
-        response = self.client.post(reverse('authentification:log_in'), data)
+        response = self.client.post(reverse('users:log_in'), data)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
             response, reverse('program_builder:trainings_list')
@@ -111,7 +111,7 @@ class LoginPageTestCase(TestCase):
             'password': 'existing-ref',
         }
 
-        response = self.client.post(reverse('authentification:log_in'), data)
+        response = self.client.post(reverse('users:log_in'), data)
         self.assertEqual(response.status_code, 200)
 
         user = auth.get_user(self.client)
@@ -128,7 +128,7 @@ class LoginPageTestCase(TestCase):
             'password': 'unknown-ref',
         }
 
-        response = self.client.post(reverse('authentification:log_in'), data)
+        response = self.client.post(reverse('users:log_in'), data)
         self.assertEqual(response.status_code, 200)
 
         user = auth.get_user(self.client)
@@ -141,9 +141,9 @@ class LogOutPageTestCase(TestCase):
         The method tests the behavior of the app when a logout
         is done
         """
-        response = self.client.get(reverse('authentification:log_out'))
+        response = self.client.get(reverse('users:log_out'))
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('authentification:log_in'))
+        self.assertRedirects(response, reverse('users:log_in'))
 
 
 class PasswordForgottenPageTestCase(TestCase):
@@ -159,9 +159,7 @@ class PasswordForgottenPageTestCase(TestCase):
         """
         Just it tests if the password forgotten page is available
         """
-        response = self.client.get(
-            reverse('authentification:password_forgotten')
-        )
+        response = self.client.get(reverse('users:password_forgotten'))
         self.assertEqual(response.status_code, 200)
 
     # test page post good email
@@ -174,9 +172,7 @@ class PasswordForgottenPageTestCase(TestCase):
             'mail': 'test-ref@register.com',
         }
 
-        response = self.client.post(
-            reverse('authentification:password_forgotten'), data
-        )
+        response = self.client.post(reverse('users:password_forgotten'), data)
 
     # test page post wrong email
     def test_password_forgotten_page_post_wrong_email(self):

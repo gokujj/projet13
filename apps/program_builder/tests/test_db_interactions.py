@@ -1,13 +1,25 @@
 #! /usr/bin/env python3
 # coding: utf-8
-from django.utils import timezone
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase
 from django.contrib.auth.models import User
-from .helper_dbtestdata import TestDatabase
-from ..models import Training, Exercise, MovementsPerExercise, Movement, MovementSettings, Equipment, MovementSettingsPerMovementsPerExercise
-from ..utils.db_interactions import DBMovement, DBExercise, DBTraining
-
 from django.db.models import Q
+
+from program_builder.models import (
+    Training,
+    Exercise,
+    MovementsPerExercise,
+    Movement,
+    MovementSettings,
+    Equipment,
+    MovementSettingsPerMovementsPerExercise,
+)
+from program_builder.utils.db_interactions import (
+    DBMovement,
+    DBExercise,
+    DBTraining,
+)
+from .helper_dbtestdata import TestDatabase
+
 
 class TestDBMovement(TestCase):
     """
@@ -50,7 +62,9 @@ class TestDBMovement(TestCase):
 
         # Two are already associated in the database test
         self.assertEqual(movement.settings.all().count(), 2)
-        movement_settings = self.db_mvt.set_settings_to_movement(movement, cal, dist)
+        movement_settings = self.db_mvt.set_settings_to_movement(
+            movement, cal, dist
+        )
         self.assertEqual(movement.settings.all().count(), 4)
 
     def test_set_settings_movement_setting_already_exists(self):
@@ -67,7 +81,9 @@ class TestDBMovement(TestCase):
 
         # Two are already associated in the database test
         self.assertEqual(movement.settings.all().count(), 2)
-        movement_settings = self.db_mvt.set_settings_to_movement(movement, cal, dist, rep, weight)
+        movement_settings = self.db_mvt.set_settings_to_movement(
+            movement, cal, dist, rep, weight
+        )
         self.assertEqual(movement.settings.all().count(), 4)
 
 
@@ -127,7 +143,14 @@ class TestDBExercise(TestCase):
         goal_value = "8000"
         founder = User.objects.get(username='admin_user')
 
-        exercise = self.db_exo.set_exercise(exercise_name, exercise_type, description, goal_type, goal_value, founder)
+        exercise = self.db_exo.set_exercise(
+            exercise_name,
+            exercise_type,
+            description,
+            goal_type,
+            goal_value,
+            founder,
+        )
 
         exercise_exists = Exercise.objects.filter(name=exercise_name).exists()
         self.assertTrue(exercise_exists)
@@ -142,8 +165,8 @@ class TestDBExercise(TestCase):
         This test checks if the method set_exercise registers well a new
         movement to an exercise
         """
-        
-        #We get the user
+
+        # We get the user
         founder = User.objects.get(username='admin_user')
 
         # We get an exercise
@@ -166,7 +189,7 @@ class TestDBExercise(TestCase):
         This method tests the method set_settings_value_to_movement_linked_to_exercise
         """
 
-        #We get the user
+        # We get the user
         founder = User.objects.get(username='admin_user')
 
         # We get an exercise
@@ -180,15 +203,20 @@ class TestDBExercise(TestCase):
 
         # We associate the movement as a third movements for connie workout
         connie_pushup = self.db_exo.set_movement_to_exercise(connie, pushup, 3)
-        
+
         # We associate a number of repetitions of pushup for connie workout
-        rep_value = self.db_exo.set_settings_value_to_movement_linked_to_exercise(connie_pushup, rep, 10)
+        rep_value = (
+            self.db_exo.set_settings_value_to_movement_linked_to_exercise(
+                connie_pushup, rep, 10
+            )
+        )
 
         # We test
         self.assertEqual(rep_value.setting_value, 10)
         self.assertEqual(rep_value.setting, rep)
         self.assertEqual(rep_value.exercise_movement.exercise, connie)
         self.assertEqual(rep_value.exercise_movement.movement, pushup)
+
 
 class TestDBTraining(TestCase):
     """
@@ -249,7 +277,11 @@ class TestDBTraining(TestCase):
         connie = Exercise.objects.get(name="connie")
 
         # We apply the method
-        trainings = self.db_training.get_all_trainings_from_one_user_from_one_exercise(connie, founder)
+        trainings = (
+            self.db_training.get_all_trainings_from_one_user_from_one_exercise(
+                connie, founder
+            )
+        )
 
         # We test
         self.assertEqual(trainings.count(), 2)

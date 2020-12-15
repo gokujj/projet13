@@ -2,7 +2,8 @@
 # coding: utf-8
 from datetime import datetime
 from django.contrib.auth.models import User
-from ..models import (
+
+from program_builder.models import (
     Training,
     Exercise,
     MovementsPerExercise,

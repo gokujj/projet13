@@ -132,7 +132,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -159,4 +159,4 @@ MESSAGE_TAGS = {
 }
 
 # Login URL
-LOGIN_URL = 'users:login'
+LOGIN_URL = 'users:log_in'

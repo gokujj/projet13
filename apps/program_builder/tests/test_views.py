@@ -3,9 +3,9 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .helper_dbtestdata import TestDatabase
-from ..utils.db_interactions import DBMovement
-from ..models import (
+
+from program_builder.utils.db_interactions import DBMovement
+from program_builder.models import (
     Training,
     Exercise,
     MovementsPerExercise,
@@ -14,6 +14,7 @@ from ..models import (
     MovementSettings,
     Equipment,
 )
+from .helper_dbtestdata import TestDatabase
 
 
 class IndexPageTestCase(TestCase):

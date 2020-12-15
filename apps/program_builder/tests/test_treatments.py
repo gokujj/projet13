@@ -3,8 +3,8 @@
 from datetime import datetime
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .helper_dbtestdata import TestDatabase
-from ..models import (
+
+from program_builder.models import (
     Training,
     Exercise,
     MovementsPerExercise,
@@ -13,8 +13,9 @@ from ..models import (
     MovementSettings,
     Equipment,
 )
-from ..utils.treatments import DataTreatment
-from ..utils.db_interactions import DBMovement
+from program_builder.utils.treatments import DataTreatment
+from program_builder.utils.db_interactions import DBMovement
+from .helper_dbtestdata import TestDatabase
 
 
 class TestDataTreatment(TestCase):
