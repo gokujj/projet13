@@ -1,0 +1,24 @@
+Name                                                 Stmts   Miss  Cover
+------------------------------------------------------------------------
+apps/program_builder/admin.py                           22      0   100%
+apps/program_builder/apps.py                             3      0   100%
+apps/program_builder/forms.py                           18      0   100%
+apps/program_builder/models.py                          86      7    92%
+apps/program_builder/tests/helper_dbtestdata.py         57      0   100%
+apps/program_builder/tests/test_db_interactions.py     111      0   100%
+apps/program_builder/tests/test_treatments.py          236      0   100%
+apps/program_builder/tests/test_views.py                93      0   100%
+apps/program_builder/urls.py                             4      0   100%
+apps/program_builder/utils/db_interactions.py          107     21    80%
+apps/program_builder/utils/tools.py                     14      8    43%
+apps/program_builder/utils/treatments.py               147     25    83%
+apps/program_builder/views.py                          106     44    58%
+apps/users/apps.py                                       3      0   100%
+apps/users/forms.py                                     14      0   100%
+apps/users/models.py                                     2      0   100%
+apps/users/tests/test_views.py                          78      0   100%
+apps/users/tokens.py                                     5      0   100%
+apps/users/urls.py                                       4      0   100%
+apps/users/views.py                                    122     45    63%
+------------------------------------------------------------------------
+TOTAL                                                 1232    150    88%
